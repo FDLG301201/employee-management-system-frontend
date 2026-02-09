@@ -5,7 +5,7 @@ import type {
   EmployeeQueryParams,
 } from "./types";
 
-const BASE_URL = "/api/employees";
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/employees`;
 
 async function handleResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
@@ -29,7 +29,20 @@ export async function fetchEmployees(
   });
 
   const response = await fetch(`${BASE_URL}?${searchParams.toString()}`);
-  return handleResponse<EmployeesResponse>(response);
+  const backendResponse = await handleResponse<{
+    items: Employee[];
+    totalCount: number;
+    pageNumber: number;
+    pageSize: number;
+  }>(response);
+
+  // Transform backend response format to frontend expected format
+  return {
+    data: backendResponse.items,
+    total: backendResponse.totalCount,
+    page: backendResponse.pageNumber,
+    pageSize: backendResponse.pageSize,
+  };
 }
 
 export async function createEmployee(

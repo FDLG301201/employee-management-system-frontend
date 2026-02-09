@@ -5,7 +5,7 @@ import type { EmployeesResponse, EmployeeQueryParams } from "@/lib/types";
 import { fetchEmployees } from "@/lib/employee-service";
 
 function buildKey(params: EmployeeQueryParams): string {
-  return `/api/employees?page=${params.page}&pageSize=${params.pageSize}&sortBy=${params.sortBy}&sortDirection=${params.sortDirection}&search=${params.search}`;
+  return `${process.env.NEXT_PUBLIC_API_URL}/api/employees?page=${params.page}&pageSize=${params.pageSize}&sortBy=${params.sortBy}&sortDirection=${params.sortDirection}&search=${params.search}`;
 }
 
 export function useEmployees(params: EmployeeQueryParams) {

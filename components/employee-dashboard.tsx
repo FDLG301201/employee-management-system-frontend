@@ -65,7 +65,7 @@ export function EmployeeDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch("/api/employees/stats");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/employees/stats`);
         if (response.ok) {
           const data = await response.json();
           setStats(data);

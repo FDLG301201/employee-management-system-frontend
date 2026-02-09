@@ -29,7 +29,7 @@ export class ErrorBoundary extends React.Component<
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error("ErrorBoundary caught:", error, errorInfo);
     // Log to error tracking endpoint
-    fetch("/api/errors", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/errors`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
